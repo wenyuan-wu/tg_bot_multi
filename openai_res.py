@@ -13,7 +13,24 @@ def get_response_openai(messages, settings):
     :return: respond string
     """
     model_engine = settings["model_engine"]
-    client = OpenAI(api_key=os.environ.get('OPENAI_API'))
+    try:
+        settings["endpoint"]
+    except KeyError:
+        client = OpenAI(api_key=os.environ.get('OPENAI_API'))
+    else:
+        client = OpenAI(
+            api_key=os.environ.get('VLLM_API'),
+            base_url=os.environ.get('VLLM_BASE'),
+            )
+
+    # if settings["endpoint"] == "vllm":
+    #     client = OpenAI(
+    #         api_key=os.environ.get('VLLM_API'),
+    #         base_url=os.environ.get('VLLM_BASE'),
+    #         )
+    # else:
+    #     client = OpenAI(api_key=os.environ.get('OPENAI_API'))
+
     completion = client.chat.completions.create(model=model_engine,
     messages=messages)
     completion = client.chat.completions.create(model=model_engine,

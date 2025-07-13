@@ -7,10 +7,10 @@ Also check this [repo](https://github.com/wenyuan-wu/tg_bot_single)
 ## Setting up environment
 
 ```commandline
-pip install telebot
-pip install openai
-pip install python-dotenv
-pip install pyyaml
+pip install -U telebot
+pip install -U openai
+pip install -U python-dotenv
+pip install -U pyyaml
 ```
 
 ## Dot env file

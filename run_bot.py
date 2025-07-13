@@ -59,10 +59,12 @@ def run_tg_bot(bot_token, settings):
             conversations[chat_id].append({"role": "assistant", "content": reply})
 
             # Send AI generated response to user
-            max_length = 4096
-            # Split the reply if it's too long
-            for i in range(0, len(reply), max_length):
-                bot.reply_to(message, reply[i:i + max_length], parse_mode="Markdown")
+            reply_list = reply.split("</think>")
+            for reply in reply_list:
+                max_length = 4096
+                # Split the reply if it's too long
+                for i in range(0, len(reply), max_length):
+                    bot.reply_to(message, reply[i:i + max_length], parse_mode="Markdown")
 
             # Check if maximum turns has been reached
             if len(conversations[chat_id]) // 2 >= max_turns:
